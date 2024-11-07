@@ -182,8 +182,8 @@ optimizer = optim.Adam(model.parameters(), lr=0.001)
 #%%
 
 # Load the filtered data
-X_selected = np.load('S_X_selected.npy')
-Y_selected_labels = np.load('S_Y_selected_labels.npy')
+X_selected = np.load('data/S_X_selected.npy')
+Y_selected_labels = np.load('data/S_Y_selected_labels.npy')
 
 # Convert data to PyTorch tensors
 X_tensor = torch.tensor(X_selected, dtype=torch.float32).to(device)
@@ -207,8 +207,8 @@ S_val_loader = DataLoader(val_dataset, batch_size=batch_size, shuffle=False)
 
 #% Load T test
 # Load the filtered data
-X_selected = np.load('T_X_selected.npy')
-Y_selected_labels = np.load('T_Y_selected_labels.npy')
+X_selected = np.load('data/T_X_selected.npy')
+Y_selected_labels = np.load('data/T_Y_selected_labels.npy')
 
 # Convert data to PyTorch tensors
 X_tensor = torch.tensor(X_selected, dtype=torch.float32).to(device)

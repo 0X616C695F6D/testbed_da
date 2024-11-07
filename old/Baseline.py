@@ -9,7 +9,7 @@ import h5py
 import numpy as np
 
 # Define the path to your HDF5 file
-file_path = 'GOLD_XYZ_OSC.0001_1024.hdf5'
+file_path = 'data/GOLD_XYZ_OSC.0001_1024.hdf5'
 
 # Define the actual class names and map them to their indices
 classes = ['OOK', '4ASK', '8ASK', 'BPSK', 'QPSK', '8PSK', '16PSK', '32PSK',
@@ -66,8 +66,8 @@ label_map = {label: idx for idx, label in enumerate(unique_labels)}
 Y_selected_labels = np.array([label_map[label] for label in templabels])
 
 # Save the filtered data if needed
-np.save('S_X_selected.npy', X_selected)
-np.save('S_Y_selected_labels.npy', Y_selected_labels)
+np.save('data/S_X_selected.npy', X_selected)
+np.save('data/S_Y_selected_labels.npy', Y_selected_labels)
 
 print("Data filtering complete. Files saved as 'X_selected.npy', 'Y_selected_labels.npy', and 'Z_selected.npy'.")
 
@@ -108,8 +108,8 @@ label_map = {label: idx for idx, label in enumerate(unique_labels)}
 Y_selected_labels = np.array([label_map[label] for label in templabels])
 
 # Save the filtered data if needed
-np.save('T_X_selected.npy', X_selected)
-np.save('T_Y_selected_labels.npy', Y_selected_labels)
+np.save('data/T_X_selected.npy', X_selected)
+np.save('data/T_Y_selected_labels.npy', Y_selected_labels)
 
 print("Data filtering complete. Files saved as 'X_selected.npy', 'Y_selected_labels.npy', and 'Z_selected.npy'.")
 
@@ -125,7 +125,7 @@ import matplotlib.pyplot as plt
 
 
 #%%
-# X_selected = np.load('S_X_selected.npy')
+# X_selected = np.load('data/S_X_selected.npy')
 
 # # Select one signal to plot (for example, the first one)
 # signal = X_selected[0]
@@ -149,7 +149,7 @@ import matplotlib.pyplot as plt
 
 # #%%
 
-# X_selected = np.load('T_X_selected.npy')
+# X_selected = np.load('data/T_X_selected.npy')
 
 # # Select one signal to plot (for example, the first one)
 # signal = X_selected[0]
@@ -277,8 +277,8 @@ optimizer = optim.Adam(model.parameters(), lr=0.001)
 
 #
 # Load the filtered data
-X_selected = np.load('S_X_selected.npy')
-Y_selected_labels = np.load('S_Y_selected_labels.npy')
+X_selected = np.load('data/S_X_selected.npy')
+Y_selected_labels = np.load('data/S_Y_selected_labels.npy')
 
 # Convert data to PyTorch tensors
 X_tensor = torch.tensor(X_selected, dtype=torch.float32).to(device)
@@ -302,8 +302,8 @@ S_val_loader = DataLoader(val_dataset, batch_size=batch_size, shuffle=False)
 
 # Load T test
 # Load the filtered data
-X_selected = np.load('T_X_selected.npy')
-Y_selected_labels = np.load('T_Y_selected_labels.npy')
+X_selected = np.load('data/T_X_selected.npy')
+Y_selected_labels = np.load('data/T_Y_selected_labels.npy')
 
 # Convert data to PyTorch tensors
 X_tensor = torch.tensor(X_selected, dtype=torch.float32).to(device)

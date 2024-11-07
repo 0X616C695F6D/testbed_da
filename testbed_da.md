@@ -15,7 +15,7 @@ Tasks:
 + Research domain adaptation techniques
     + MCD
 + Modularize codebase fast
-+ Rerun and test codebase - make sure it works
++ Test codebase - make sure it works
 + Build gnuradio for generating dataset
 + Test our VTC method on real world dataset
 
