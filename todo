@@ -1,7 +1,7 @@
 # Modular
     # Define each model to be used: CNN, CLDNN, etc
     # Define DA method: DANN, MCD, etc
-    # Define Confusion matrices & performance metrics
+    # Define Confusion matrices 
     # Define tensor and dataloader
     # Define data selection and saving: modulation selection, SNR(|| others)
     

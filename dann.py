@@ -1,3 +1,13 @@
+"""
+Models with Domain Adversarial Neural Network.
+DANN: feature extractor, label predictor, domain classifier
+GRL:  gradient reversal layer
+
+FA: extracts features from input data
+DC: guess domain of sample, source or target
+LP: model prediction
+"""
+
 import numpy as np
 import torch
 import torch.nn as nn
@@ -20,6 +30,21 @@ class ReverseLayerF(Function):
 
 def grad_reverse(x, alpha=1.0):
     return ReverseLayerF.apply(x, alpha)
+
+
+#%% DANN
+class DANN(nn.Module):
+    def __init__(self, FA, LP, DC):
+        super(DANN, self).__init__()
+        self.feature_extractor = FA()
+        self.label_predictor   = LP()
+        self.domain_classifier = DC()
+
+    def forward(self, x, alpha=1.0):
+        features = self.feature_extractor(x)
+        class_output = self.label_predictor(features)
+        domain_output = self.domain_classifier(features, alpha)
+        return class_output, domain_output
 
 
 #%% CNN
