@@ -563,12 +563,8 @@ mean_f1_t = np.mean(f1_t_list)
 mean_class_accuracies_s = np.mean(class_accuracies_s, axis=0)
 mean_class_accuracies_t = np.mean(class_accuracies_t, axis=0)
 
-print(f"Source performance: {mean_accuracy_s*100:.2f}% {mean_pr_s*100:.2f}% {mean_re_s*100:.2f}% {mean_f1_s*100:.2f}%")
-
+print(f"\nSource performance: {mean_accuracy_s*100:.2f}% {mean_pr_s*100:.2f}% {mean_re_s*100:.2f}% {mean_f1_s*100:.2f}%")
 print(f"Target performance: {mean_accuracy_t*100:.2f}% {mean_pr_t*100:.2f}% {mean_re_t*100:.2f}% {mean_f1_t*100:.2f}%")
-print(f"Precision: {mean_pr_t*100:.2f}%")
-print(f"Recall: {mean_re_t*100:.2f}%")
-print(f"F1 Score: {mean_f1_t*100:.2f}%")
 
 print("\nPer-Class Accuracy on Target Domain:")
 for i, class_name in enumerate(class_subset):

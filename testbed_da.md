@@ -8,16 +8,16 @@ Papers:
     1. Train discriminators (classifiers) F1, F2 to maximize discrepancy given
        target features.
     2. train the generator to fool discriminator by min. the discrepancy.
++ Domain Generalization: A Survey K. Zhou
+  Methods for DA and DG. Useful for finding new DA methods
 
 
 
 Tasks:
 + Research domain adaptation techniques
-    + MCD
-+ Modularize codebase fast
-+ Test codebase - make sure it works
-+ Build gnuradio for generating dataset
-+ Test our VTC method on real world dataset
+    + Stochastic classifiers for unsupervised domain adaptation (STAR)
+    + Correlation alignment for deep domain adaptation (CORAL)
++ Build gnuradio for generating dataset & evaluate generated samples
 
 Ideas:
 
@@ -36,5 +36,6 @@ Issues:
 
 
 Done:
-
-
++ Modularize codebase fast
++ Test codebase - make sure it works
++ Maximum classifier discrepancy
