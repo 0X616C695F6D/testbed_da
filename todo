@@ -1,10 +1,10 @@
-# Modular
+# Modular [DONE]
     # Define each model to be used: CNN, CLDNN, etc
     # Define DA method: DANN, MCD, etc
     # Define Confusion matrices 
     # Define tensor and dataloader
     # Define data selection and saving: modulation selection, SNR(|| others)
-    
+
 
 # BaseLine
 # split the main data into S/T_X/Y_selected.npy

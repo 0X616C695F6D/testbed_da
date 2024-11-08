@@ -63,9 +63,9 @@ def filter_and_save_data(file_path, all_classes, class_of_interest, z_value, dom
     coi_indices = [all_classes.index(name) for name in class_of_interest]
 
     with h5py.File(file_path, 'r') as f:
-        X = f['X'][:]
-        Y = f['Y'][:]
-        Z = f['Z'][:]
+        X = f['X'][:] # Feature set
+        Y = f['Y'][:] # Label
+        Z = f['Z'][:] # SNR 
 
     # Filter data to include only specified classes and Z value
     selected_indices = [
@@ -87,3 +87,4 @@ def filter_and_save_data(file_path, all_classes, class_of_interest, z_value, dom
     np.save(f'data/{domain}_Z.npy', Z_selected)
 
     print('Files saved in /data/*.npy')
+    return f'data/{domain}_X.npy', f'data/{domain}_Y.npy'

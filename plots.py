@@ -7,12 +7,16 @@ def plot_signal(file_path, signal_index=0):
 
     Parameters
     ----------
-    file_path : Path to file containing feature set
-    signal_index : Index of waveform to sample
+    file_path : Path to file containing feature set.
+        Has to be a numpy file containing IQ data.
+    signal_index : Index of waveform to sample.
+        Waveform selected to be plotted.
 
     Returns
     -------
     Plot of waveform
+        For best visibilty and abstraction, spines are
+        invisible and tickers are off. Could be changed later.
 
     """
     X = np.load(file_path)
