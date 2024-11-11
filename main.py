@@ -4,6 +4,7 @@ import torch.nn as nn
 import torch.optim as optim
 import torch.nn.functional as F
 import funcs
+import star
 import mcd
 import dann
 import base
@@ -51,7 +52,7 @@ T_train_loader, T_val_loader = funcs.create_loader(X_path, Y_path)
 # plots.plot_signal(X_path, signal_index=12221)
 
 
-#%% Baseline - Change model as needed
+#%% Baseline - VTC24 code
 
 # Hyperparameters
 lr = 0.001
@@ -210,7 +211,7 @@ for i, class_name in enumerate(class_subset):
     print(f"{class_name}: {mean_class_accuracies_t[i]*100:.2f}")
 
 
-#%% DANN - Change model as needed
+#%% DANN - VTC24 code
 
 # Hyperparameters
 lr = 0.001
@@ -342,7 +343,7 @@ for acc in avg_target_per_class_accuracy:
 print()
 
 
-#%% MCD - CLDNN model only
+#%% MCD - Maximum classifier discrepancy for UDA
     
 # Hyperparameters
 num_classes = n_classes
@@ -548,6 +549,262 @@ for run in range(n_runs):
     re_t_list.append(re_t)
     f1_t_list.append(f1_t)
     class_accuracies_t.append(class_acc_t)
+
+# Calculate mean and standard deviation of performance metrics
+mean_accuracy_s = np.mean(accuracy_s_list)
+mean_pr_s = np.mean(pr_s_list)
+mean_re_s = np.mean(re_s_list)
+mean_f1_s = np.mean(f1_s_list)
+
+mean_accuracy_t = np.mean(accuracy_t_list)
+mean_pr_t = np.mean(pr_t_list)
+mean_re_t = np.mean(re_t_list)
+mean_f1_t = np.mean(f1_t_list)
+
+mean_class_accuracies_s = np.mean(class_accuracies_s, axis=0)
+mean_class_accuracies_t = np.mean(class_accuracies_t, axis=0)
+
+print(f"\nSource performance: {mean_accuracy_s*100:.2f}% {mean_pr_s*100:.2f}% {mean_re_s*100:.2f}% {mean_f1_s*100:.2f}%")
+print(f"Target performance: {mean_accuracy_t*100:.2f}% {mean_pr_t*100:.2f}% {mean_re_t*100:.2f}% {mean_f1_t*100:.2f}%")
+
+print("\nPer-Class Accuracy on Target Domain:")
+for i, class_name in enumerate(class_subset):
+    print(f"{class_name}: {mean_class_accuracies_t[i]*100:.2f}%")
+    
+#%% STAR - Stochastic classifier for UDA
+
+import numpy as np
+import torch
+import torch.nn as nn
+import torch.nn.functional as F
+import torch.optim as optim
+from sklearn.metrics import accuracy_score, precision_score, recall_score, f1_score, confusion_matrix
+import matplotlib.pyplot as plt
+import seaborn as sns
+
+
+# Hyperparameters
+num_classes = n_classes
+learning_rate = 0.001
+n_epochs = 25
+n_runs = 5
+patience = 5
+
+# Lists to store performance metrics for each run
+accuracy_s_list, pr_s_list, re_s_list, f1_s_list = [], [], [], []
+accuracy_t_list, pr_t_list, re_t_list, f1_t_list = [], [], [], []
+class_accuracies_s = []
+class_accuracies_t = []
+
+def discrepancy_loss(out1, out2):
+    return torch.mean(torch.abs(F.softmax(out1, dim=1) - F.softmax(out2, dim=1)))
+
+def evaluate_model(feature_extractor, classifier, loader, num_classes):
+    feature_extractor.eval()
+    classifier.eval()
+    true_labels = []
+    predictions = []
+    with torch.no_grad():
+        for inputs, labels in loader:
+            inputs = inputs.to(device)
+            labels = labels.to(device)
+            features = feature_extractor(inputs)
+            outputs_list = classifier(features, only_mu=True)  # Use only the mean classifier
+            outputs = outputs_list[0]
+            _, preds = torch.max(outputs, 1)
+            true_labels.extend(labels.cpu().numpy())
+            predictions.extend(preds.cpu().numpy())
+    
+    # Compute metrics
+    accuracy = accuracy_score(true_labels, predictions)
+    precision = precision_score(true_labels, predictions, average='macro', zero_division=0)
+    recall = recall_score(true_labels, predictions, average='macro', zero_division=0)
+    f1 = f1_score(true_labels, predictions, average='macro', zero_division=0)
+    conf_mat = confusion_matrix(true_labels, predictions)
+    
+    # Plot confusion matrix
+    plt.figure(figsize=(8,6), dpi=300)
+    sns.heatmap(conf_mat, annot=True, fmt='d', cmap='Blues',
+                xticklabels=class_subset,
+                yticklabels=class_subset)
+    plt.yticks(fontsize=14, rotation=360)
+    plt.xticks(fontsize=14, rotation=90)
+    plt.title('Confusion Matrix')
+    plt.show()
+    
+    class_accuracy = conf_mat.diagonal() / conf_mat.sum(axis=1)
+    return accuracy, precision, recall, f1, class_accuracy
+
+def train_model():
+    # Initialize models
+    feature_extractor = star.CLDNN_G().to(device)
+    classifier = star.CLDNN_C(output_dim=num_classes).to(device)
+    
+    # Define criterion and optimizers
+    criterion = nn.CrossEntropyLoss()
+    optimizer_g = optim.Adam(feature_extractor.parameters(), lr=learning_rate)
+    optimizer_c = optim.Adam(classifier.parameters(), lr=learning_rate)
+    
+    # Learning rate schedulers
+    scheduler_g = optim.lr_scheduler.StepLR(optimizer_g, step_size=10, gamma=0.1)
+    scheduler_c = optim.lr_scheduler.StepLR(optimizer_c, step_size=10, gamma=0.1)
+    
+    # Early stopping parameters
+    best_val_loss = float('inf')
+    trigger_times = 0
+    
+    for epoch in range(n_epochs):
+        feature_extractor.train()
+        classifier.train()
+        
+        running_loss_s = 0.0
+        running_loss_dis = 0.0
+        
+        source_iter = iter(S_train_loader)
+        target_iter = iter(T_train_loader)
+        num_batches = min(len(S_train_loader), len(T_train_loader))
+        
+        for batch_idx in range(num_batches):
+            #========================
+            # Step 1: Update G and C using source data
+            #========================
+            optimizer_g.zero_grad()
+            optimizer_c.zero_grad()
+            
+            # Get source batch
+            inputs_s, labels_s = next(source_iter)
+            inputs_s, labels_s = inputs_s.to(device), labels_s.to(device)
+            
+            # Forward pass
+            features_s = feature_extractor(inputs_s)
+            outputs_s_list = classifier(features_s)  # Outputs from multiple classifiers
+            
+            # Compute classification loss on source data
+            loss_s = 0
+            for outputs_s in outputs_s_list:
+                loss_s += criterion(outputs_s, labels_s)
+            loss_s /= len(outputs_s_list)
+            
+            # Backward and optimize
+            loss_s.backward()
+            optimizer_g.step()
+            optimizer_c.step()
+            
+            #========================
+            # Step 2: Update classifiers C using target data to maximize discrepancy
+            #========================
+            optimizer_c.zero_grad()
+            
+            # Get target batch
+            inputs_t, _ = next(target_iter)
+            inputs_t = inputs_t.to(device)
+            
+            # Forward pass
+            with torch.no_grad():
+                features_t = feature_extractor(inputs_t)
+            outputs_t_list = classifier(features_t)
+            
+            # Compute discrepancy loss between classifiers
+            loss_dis = 0
+            num_classifiers = classifier.num_classifiers_train
+            for i in range(num_classifiers):
+                for j in range(i + 1, num_classifiers):
+                    loss_dis += discrepancy_loss(outputs_t_list[i], outputs_t_list[j])
+            num_pairs = num_classifiers * (num_classifiers - 1) / 2
+            loss_dis = loss_dis / num_pairs
+            
+            # Maximize discrepancy by minimizing negative loss
+            loss_dis = -loss_dis
+            loss_dis.backward()
+            optimizer_c.step()
+            
+            #========================
+            # Step 3: Update generator G using target data to minimize discrepancy
+            #========================
+            optimizer_g.zero_grad()
+            
+            features_t = feature_extractor(inputs_t)
+            outputs_t_list = classifier(features_t)
+            
+            # Compute discrepancy loss between classifiers
+            loss_dis = 0
+            for i in range(num_classifiers):
+                for j in range(i + 1, num_classifiers):
+                    loss_dis += discrepancy_loss(outputs_t_list[i], outputs_t_list[j])
+            loss_dis = loss_dis / num_pairs
+            
+            # Minimize discrepancy
+            loss_dis.backward()
+            optimizer_g.step()
+            
+            # Update running losses
+            running_loss_s += loss_s.item()
+            running_loss_dis += loss_dis.item()
+            
+        # Learning rate scheduler step
+        scheduler_g.step()
+        scheduler_c.step()
+        
+        # Print average losses for the epoch
+        avg_loss_s = running_loss_s / num_batches
+        avg_loss_dis = running_loss_dis / num_batches
+        print(f'Epoch [{epoch+1}/{n_epochs}], Classification Loss: {avg_loss_s:.4f}, Discrepancy Loss: {avg_loss_dis:.4f}')
+        
+        # Early stopping based on validation loss on source domain
+        feature_extractor.eval()
+        classifier.eval()
+        val_loss = 0.0
+        total_samples = 0
+        with torch.no_grad():
+            for inputs_s, labels_s in S_val_loader:
+                inputs_s, labels_s = inputs_s.to(device), labels_s.to(device)
+                features_s = feature_extractor(inputs_s)
+                outputs_s_list = classifier(features_s)
+                loss_s = 0
+                for outputs_s in outputs_s_list:
+                    loss_s += criterion(outputs_s, labels_s)
+                loss_s = loss_s / len(outputs_s_list)
+                val_loss += loss_s.item() * inputs_s.size(0)
+                total_samples += inputs_s.size(0)
+        val_loss = val_loss / total_samples
+        print(f'Validation Loss: {val_loss:.4f}')
+        
+        # Early stopping check
+        if val_loss < best_val_loss:
+            best_val_loss = val_loss
+            trigger_times = 0
+        else:
+            trigger_times += 1
+            if trigger_times >= patience:
+                print('Early stopping!')
+                break
+    
+    return feature_extractor, classifier
+
+
+# Run multiple times and collect performance metrics
+for run in range(n_runs):
+    print(f'\nRun {run+1}/{n_runs}')
+    feature_extractor, classifier = train_model()
+    
+    # Evaluate on source domain
+    accuracy_s, pr_s, re_s, f1_s, class_acc_s = evaluate_model(feature_extractor, classifier, S_val_loader, num_classes)
+    print(f'Source Domain Performance - Accuracy: {accuracy_s*100:.2f}%, Precision: {pr_s*100:.2f}%, Recall: {re_s*100:.2f}%, F1 Score: {f1_s*100:.2f}%')
+    accuracy_s_list.append(accuracy_s)
+    pr_s_list.append(pr_s)
+    re_s_list.append(re_s)
+    f1_s_list.append(f1_s)
+    class_accuracies_s.append(class_acc_s)
+    
+    # Evaluate on target domain
+    accuracy_t, pr_t, re_t, f1_t, class_acc_t = evaluate_model(feature_extractor, classifier, T_val_loader, num_classes)
+    print(f'Target Domain Performance - Accuracy: {accuracy_t*100:.2f}%, Precision: {pr_t*100:.2f}%, Recall: {re_t*100:.2f}%, F1 Score: {f1_t*100:.2f}%')
+    accuracy_t_list.append(accuracy_t)
+    pr_t_list.append(pr_t)
+    re_t_list.append(re_t)
+    f1_t_list.append(f1_t)
+    class_accuracies_t.append(class_acc_t)
+
 
 # Calculate mean and standard deviation of performance metrics
 mean_accuracy_s = np.mean(accuracy_s_list)
