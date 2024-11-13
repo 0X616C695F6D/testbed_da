@@ -579,7 +579,7 @@ for i, class_name in enumerate(class_subset):
 # Hyperparameters
 num_classes = n_classes
 learning_rate = 0.001
-n_epochs = 25
+n_epochs = 50
 n_runs = 1
 patience = 5
 
@@ -638,13 +638,9 @@ def train_model():
     optimizer_g = optim.Adam(feature_extractor.parameters(), lr=learning_rate)
     optimizer_c = optim.Adam(classifier.parameters(), lr=learning_rate)
     
-    # Learning rate schedulers
+    # Learning rate schedulers (optional)
     scheduler_g = optim.lr_scheduler.StepLR(optimizer_g, step_size=10, gamma=0.1)
     scheduler_c = optim.lr_scheduler.StepLR(optimizer_c, step_size=10, gamma=0.1)
-    
-    # Early stopping parameters
-    best_val_loss = float('inf')
-    trigger_times = 0
     
     for epoch in range(n_epochs):
         feature_extractor.train()
@@ -658,9 +654,15 @@ def train_model():
         num_batches = min(len(S_train_loader), len(T_train_loader))
         
         for batch_idx in range(num_batches):
-            #========================
+            ##############################
             # Step 1: Update G and C using source data
-            #========================
+            ##############################
+            # Unfreeze all parameters
+            for param in feature_extractor.parameters():
+                param.requires_grad = True
+            for param in classifier.parameters():
+                param.requires_grad = True
+            
             optimizer_g.zero_grad()
             optimizer_c.zero_grad()
             
@@ -670,7 +672,7 @@ def train_model():
             
             # Forward pass
             features_s = feature_extractor(inputs_s)
-            outputs_s_list = classifier(features_s)  # Outputs from multiple classifiers
+            outputs_s_list = classifier(features_s)
             
             # Compute classification loss on source data
             loss_s = 0
@@ -683,9 +685,16 @@ def train_model():
             optimizer_g.step()
             optimizer_c.step()
             
-            #========================
+            ##############################
             # Step 2: Update classifiers C using target data to maximize discrepancy
-            #========================
+            ##############################
+            # Freeze feature extractor
+            for param in feature_extractor.parameters():
+                param.requires_grad = False
+            # Unfreeze classifier
+            for param in classifier.parameters():
+                param.requires_grad = True
+            
             optimizer_c.zero_grad()
             
             # Get target batch
@@ -711,11 +720,19 @@ def train_model():
             loss_dis.backward()
             optimizer_c.step()
             
-            #========================
+            ##############################
             # Step 3: Update generator G using target data to minimize discrepancy
-            #========================
+            ##############################
+            # Unfreeze feature extractor
+            for param in feature_extractor.parameters():
+                param.requires_grad = True
+            # Freeze classifier
+            for param in classifier.parameters():
+                param.requires_grad = False
+            
             optimizer_g.zero_grad()
             
+            # Forward pass
             features_t = feature_extractor(inputs_t)
             outputs_t_list = classifier(features_t)
             
@@ -730,10 +747,19 @@ def train_model():
             loss_dis.backward()
             optimizer_g.step()
             
+            ##############################
+            # Reset requires_grad for next iteration
+            ##############################
+            # Unfreeze all parameters for next iteration
+            for param in feature_extractor.parameters():
+                param.requires_grad = True
+            for param in classifier.parameters():
+                param.requires_grad = True
+            
             # Update running losses
             running_loss_s += loss_s.item()
             running_loss_dis += loss_dis.item()
-            
+        
         # Learning rate scheduler step
         scheduler_g.step()
         scheduler_c.step()
@@ -743,37 +769,9 @@ def train_model():
         avg_loss_dis = running_loss_dis / num_batches
         print(f'Epoch [{epoch+1}/{n_epochs}], Class Loss: {avg_loss_s:.4f}, Discrepancy Loss: {avg_loss_dis:.4f}')
         
-        # Early stopping based on validation loss on source domain
-        feature_extractor.eval()
-        classifier.eval()
-        val_loss = 0.0
-        total_samples = 0
-        with torch.no_grad():
-            for inputs_s, labels_s in S_val_loader:
-                inputs_s, labels_s = inputs_s.to(device), labels_s.to(device)
-                features_s = feature_extractor(inputs_s)
-                outputs_s_list = classifier(features_s)
-                loss_s = 0
-                for outputs_s in outputs_s_list:
-                    loss_s += criterion(outputs_s, labels_s)
-                loss_s = loss_s / len(outputs_s_list)
-                val_loss += loss_s.item() * inputs_s.size(0)
-                total_samples += inputs_s.size(0)
-        val_loss = val_loss / total_samples
-        print(f'Validation Loss: {val_loss:.4f}')
+        # Early stopping or validation steps can be added here if necessary
         
-        # Early stopping check
-        if val_loss < best_val_loss:
-            best_val_loss = val_loss
-            trigger_times = 0
-        else:
-            trigger_times += 1
-            if trigger_times >= patience:
-                print('Early stopping!')
-                break
-    
     return feature_extractor, classifier
-
 
 # Run multiple times and collect performance metrics
 for run in range(n_runs):
