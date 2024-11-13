@@ -19,9 +19,8 @@ Papers:
 
 
 Tasks:
-+ Research domain adaptation techniques
-    + Correlation alignment for deep domain adaptation (CORAL)
-    + CyCADA
++ Verify current implementations are correct. Use 0dB as target and 20dB as
+  source.
 + Build gnuradio for generating dataset & evaluate generated samples
 
 
@@ -50,6 +49,7 @@ Issues:
 
 
 Done:
++ Correlation alignment for deep domain adaptation (CORAL)
 + Stochastic classifier (STAR)
 + Maximum classifier discrepancy (MCD)
 + Test codebase - make sure it works
