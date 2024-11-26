@@ -51,7 +51,7 @@ X_path, Y_path = funcs.filter_and_save_data(file_path, classes, class_subset,
 T_train_loader, T_val_loader = funcs.create_loader(X_path, Y_path)
 
 # Plot of a waveform
-# plots.plot_signal(X_path, signal_index=12221)
+plots.plot_signal(X_path, signal_index=100)
 
 
 #%% Baseline - VTC24 code
@@ -579,7 +579,7 @@ for i, class_name in enumerate(class_subset):
 # Hyperparameters
 num_classes = n_classes
 learning_rate = 0.001
-n_epochs = 50
+n_epochs = 25
 n_runs = 1
 patience = 5
 
@@ -602,7 +602,7 @@ def evaluate_model(feature_extractor, classifier, loader, num_classes):
             inputs = inputs.to(device)
             labels = labels.to(device)
             features = feature_extractor(inputs)
-            outputs_list = classifier(features, only_mu=True)  # Use only the mean classifier
+            outputs_list = classifier(features, only_mu=True)
             outputs = outputs_list[0]
             _, preds = torch.max(outputs, 1)
             true_labels.extend(labels.cpu().numpy())

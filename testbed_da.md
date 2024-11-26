@@ -16,12 +16,13 @@ Papers:
   derived from gaussian distribution with RV parameters mu and sigma. Simply
   take the first layer weight vector, do multiple distributions and assume that
   is another classifier.
++ Deep CORAL: Correlation alignment for unsupervised domain adaptation
 
 
 Tasks:
-+ Verify current implementations are correct. Use 0dB as target and 20dB as
-  source.
-+ Build gnuradio for generating dataset & evaluate generated samples
++ Build OTA for 2-3 QAM signals & generate data for them
++ Add Resnet and CNN models if we have time
++ Can I somehow use the new TorchSig paper? It has inbuilt ML inference on GR
 
 
 Ideas:
@@ -41,6 +42,7 @@ Goals:
 Questions:
 + Should we use additional datasets besides radioml 2018.01a and real-world?
     + radioml 2016? Others?
+    + Torchsig to produce datasets?
 + How many local/global DA methods?
     + G is dann, cycada. L is mcd and stochastic.
 
@@ -49,8 +51,12 @@ Issues:
 
 
 Done:
-+ Correlation alignment for deep domain adaptation (CORAL)
-+ Stochastic classifier (STAR)
-+ Maximum classifier discrepancy (MCD)
++ Build 3 PSK OTA Tx-Rx & generate data
++ Verify current implementations are correct
+    + Correlation alignment for deep domain adaptation (CORAL)
+    + Stochastic classifier (STAR)
+    + Maximum classifier discrepancy (MCD)
+    + Domain adversarial neural network (DANN) - VTC24
+    + Baseline - VTC24
 + Test codebase - make sure it works
 + Modularize codebase fast
