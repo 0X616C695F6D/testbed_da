@@ -1,4 +1,4 @@
-Target: Nov 30
+Target: Eo. December
 Papers:
 + Domain Generalization: A Survey K. Zhou
   Methods for DA and DG. Useful for finding new DA methods
@@ -20,8 +20,11 @@ Papers:
 
 
 Tasks:
-+ Build OTA for 2-3 QAM signals & generate data for them
-+ Add Resnet and CNN models if we have time
++ Use matlab:
+    + sample for 2-3 psk mods
+    + sample for 2-3 qam mods
++ Validate performance of those mods before adding a channel model
++ Add Resnet & CNN
 + Can I somehow use the new TorchSig paper? It has inbuilt ML inference on GR
 
 
@@ -40,6 +43,8 @@ Goals:
 
 
 Questions:
++ Getting accurate SNR on a real testbed is not possible, should we mix or try
+  our best to categorize samples
 + Should we use additional datasets besides radioml 2018.01a and real-world?
     + radioml 2016? Others?
     + Torchsig to produce datasets?
