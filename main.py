@@ -10,6 +10,7 @@ import mcd
 import dann
 import base
 import plots
+import os
 import seaborn as sns
 import matplotlib.pyplot as plt
 
@@ -18,7 +19,7 @@ from sklearn.metrics import precision_score,f1_score,recall_score
 from torch.optim.lr_scheduler import StepLR
 
 
-#%% Prelim
+#%% Data loading for RadioML 2018 dataset
 
 device = torch.device("cuda" if torch.cuda.is_available() else "cpu")
 file_path = 'data/GOLD_XYZ_OSC.0001_1024.hdf5'
@@ -51,8 +52,34 @@ X_path, Y_path = funcs.filter_and_save_data(file_path, classes, class_subset,
 T_train_loader, T_val_loader = funcs.create_loader(X_path, Y_path)
 
 # Plot of a waveform
-plots.plot_signal(X_path, signal_index=100)
+# plots.plot_signal(X_path, signal_index=100)
 
+
+#%% Data loading for captured waveform
+
+device = torch.device("cuda" if torch.cuda.is_available() else "cpu")
+
+file_paths = '/home/ash/ic3/testbed_da/data/testbed_collected/'
+numpy_files = [f for f in os.listdir(file_paths) if f.endswith('.npy')]
+classes = []
+X_path = []
+Y_path = []
+
+# Load numpy and create label
+for idx, f in enumerate(numpy_files):
+    mod = f.split('.')[0]
+    classes.append(mod)
+    path = os.path.join(file_paths, f)
+    
+    data = np.load(path)
+    X_path.append(data)
+    
+    Y_path.extend([idx] * data.shape[0])
+
+X_path = np.vstack(X_path)
+Y_path = np.array(Y_path)
+
+S_train_loader, S_val_loader = funcs.create_loader(X_path, Y_path, permute=False)
 
 #%% Baseline - VTC24 code
 

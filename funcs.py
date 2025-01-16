@@ -6,9 +6,9 @@ from torch.utils.data import DataLoader, TensorDataset, random_split
 
 device = torch.device("cuda" if torch.cuda.is_available() else "cpu")
 
-def create_loader(X_path, Y_path, batch_size=80, split=0.8):
+def create_loader(X_path, Y_path, batch_size=80, split=0.8, permute=True):
     """
-    Turn NPY files into dataloaders
+    Turn NPY files into dataloaders. Input can be a file path or an ndarray.
 
     Parameters
     ----------
@@ -23,12 +23,21 @@ def create_loader(X_path, Y_path, batch_size=80, split=0.8):
     val_loader : Test dataloader
 
     """
-    X = np.load(X_path)
-    Y = np.load(Y_path)
+    if isinstance(X_path, np.ndarray):
+        X = X_path
+    else :
+        X = np.load(X_path)
+    
+    if isinstance(Y_path, np.ndarray):
+        Y = Y_path
+    else:
+        Y = np.load(Y_path)
     
     X_tensor = torch.tensor(X, dtype=torch.float32).to(device)
     Y_tensor = torch.tensor(Y, dtype=torch.long).to(device)
-    X_tensor = X_tensor.permute(0, 2, 1)
+    
+    if permute:
+        X_tensor = X_tensor.permute(0, 2, 1)
         
     dataset = TensorDataset(X_tensor, Y_tensor)
     

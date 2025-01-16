@@ -20,9 +20,6 @@ Papers:
 
 
 Tasks:
-+ Use matlab:
-    + sample for 2-3 psk mods
-    + sample for 2-3 qam mods
 + Validate performance of those mods before adding a channel model
 + Add Resnet & CNN
 + Can I somehow use the new TorchSig paper? It has inbuilt ML inference on GR
