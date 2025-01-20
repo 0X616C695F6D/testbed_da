@@ -28,4 +28,4 @@ for i in range(10):
     plt.title(f'Normalized IQ Data - Frame {i*10}')
     plt.show()
 
-np.save('8psk', IQ_frames_normalized)
+np.save('8apsk', IQ_frames_normalized)
