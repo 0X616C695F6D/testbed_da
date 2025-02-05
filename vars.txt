@@ -1,0 +1,41 @@
+coarse freq:
+max frequency resolution (smaller)
+
+symbol synch:
+sample per symbol?
+normalized bandwidth (test 0.005-0.01)
+
+freq comp:
+mod type
+sample per symbol
+
+
+
+------------------------------
+for 16qam: USE A RECTANGLE
+coarse freq:
+qpsk
+idk the rest
+------------------------------
+
+
+
+------------------------------
+for 32qam: USE A RECTANGLE
+coarse freq:
+qam?qpsk?
+10
+
+symbol synch:
+gardner
+2
+1.1
+0.006
+4.8
+
+carrier synch:
+qam
+2
+1.1
+0.005
+------------------------------
