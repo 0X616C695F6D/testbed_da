@@ -1,0 +1,200 @@
+///////////////////////////////////
+//                               //
+//      Results for 5 mods       //
+//                               //
+///////////////////////////////////
+
+=============
+Source SNR 22
+Target SNR 10
+=============
+
+Baseline performance
+Source performance: 84.41 88.82 84.35 80.92
+Target performance: 33.32 38.80 33.12 29.83
+
+-------------------------------------------
+
+DANN performance 81.80 83.09 81.93 77.84
+Target performance: 28.85 36.96 28.34 27.22
+
+-------------------------------------------
+
+MCD  performance
+Source performance: 34.54% 21.98% 34.83% 24.08%
+Target performance: 22.53% 12.21% 22.05% 11.09%
+
+-------------------------------------------
+
+STAR performance
+Source performance: 92.10% 93.05% 92.10% 92.29%
+Target performance: 32.84% 42.03% 32.18% 34.19%
+
+-------------------------------------------
+
+CORAL performance
+Source performance: 45.97% 36.84% 46.31% 38.10%
+Target performance: 21.73% 19.45% 21.23% 13.16%
+
+
+=============
+Source SNR 22
+Target SNR 12
+=============
+
+Baseline performance
+Source performance: 85.92 89.20 85.93 84.05
+Target performance: 42.09 38.80 41.88 32.73
+
+-------------------------------------------
+
+DANN performance
+source performance 66.99 65.04 67.07 62.84
+Target performance: 33.75 30.30 33.59 24.91
+
+-------------------------------------------
+
+MCD performance
+Source performance: 34.47% 22.05% 34.90% 24.11%
+Target performance: 21.87% 9.82% 21.62% 8.91%
+
+-------------------------------------------
+
+STAR performance
+Source performance: 52.54% 51.42% 52.76% 45.27%
+Target performance: 61.34% 59.87% 61.44% 49.61%
+
+-------------------------------------------
+
+CORAL performance
+Source performance: 81.79% 82.50% 81.88% 80.41%
+Target performance: 27.22% 30.36% 26.96% 17.26%
+
+
+
+=============
+Source SNR 22
+Target SNR 14
+=============
+
+Baseline performance
+Source performance: 82.31 84.88 82.15 78.51
+Target performance: 40.10 38.63 39.61 27.17
+--------------------------------------------
+DANN performance
+Source performance: 81.27 80.04 81.07 78.00 
+Target performance: 37.34 30.66 36.91 23.32 
+--------------------------------------------
+MCD performance
+Source performance: 34.64% 21.98% 34.82% 24.10%
+Target performance: 24.48% 10.07% 24.11% 10.37%
+--------------------------------------------
+STAR performance
+Source performance: 76.67% 82.95% 76.95% 74.71%
+Target performance: 60.76% 45.98% 59.90% 46.85%
+--------------------------------------------
+CORAL performance
+Source performance: 72.58% 70.69% 72.50% 68.48%
+Target performance: 26.56% 23.73% 26.20% 15.82%
+
+
+=============
+Source SNR 22
+Target SNR 16
+=============
+
+Baseline performance:
+Source performance: 73.20 70.81 73.17 68.65
+Target performance: 46.81 38.94 47.19 38.06
+
+--------------------------------------------
+
+DANN performance
+Source performance: 79.36 82.21 79.26 75.83
+Target performance: 55.16 39.00 55.74 41.53
+
+--------------------------------------------
+
+MCD performance
+Source performance: 19.60% 3.92% 20.00% 6.56%
+Target performance: 19.78% 3.96% 20.00% 6.60%
+
+--------------------------------------------
+
+STAR performance
+Source performance: 69.12% 62.24% 68.60% 61.29%
+Target performance: 75.83% 78.16% 76.18% 71.94%
+
+--------------------------------------------
+
+CORAL performance
+Source performance: 68.38% 65.91% 68.43% 63.48%
+Target performance: 34.92% 24.00% 35.26% 26.81%
+
+
+=============
+Source SNR 22
+Target SNR 18
+=============
+
+Baseline
+Source performance: 75.20 76.52 75.58 71.95
+Target performance: 55.80 52.30 55.83 48.89
+
+------------------------------------------
+
+DANN performance
+Source performance: 83.22 87.63 83.55 80.74
+Target performance: 69.61 77.04 69.78 61.83
+
+------------------------------------------
+
+MCD performance
+Source performance: 19.53% 3.91% 20.00% 6.54%
+Target performance: 20.29% 4.06% 20.00% 6.75%
+
+------------------------------------------
+
+STAR performance
+Source performance: 73.32% 70.34% 73.28% 67.83%
+Target performance: 96.75% 96.75% 96.71% 96.70%
+
+------------------------------------------
+
+CORAL performance
+Source performance: 82.67% 85.85% 83.01% 80.02%
+Target performance: 61.03% 62.21% 61.28% 57.51%
+
+
+=============
+Source SNR 22
+Target SNR 20
+=============
+
+Baseline performance
+Source performance: 80.72 82.40 80.79 78.01
+Target performance: 58.58 54.93 58.10 53.09
+
+------------------------------------------
+
+DANN performance
+source performance 81.76 81.90 81.83 79.04
+Target performance: 52.80 49.06 52.35 43.29
+
+------------------------------------------
+
+MCD performance
+Source performance: 34.45% 22.15% 35.08% 24.24%
+Target performance: 28.07% 11.73% 27.57% 14.80%
+
+------------------------------------------
+
+STAR performance
+Source performance: 90.02% 91.28% 90.08% 89.78%
+Target performance: 78.65% 83.23% 78.19% 75.03%
+
+------------------------------------------
+
+CORAL performance
+Source performance: 73.48% 70.67% 73.67% 70.85%
+Target performance: 59.04% 50.15% 58.46% 50.64%

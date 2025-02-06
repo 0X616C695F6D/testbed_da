@@ -20,7 +20,9 @@ Papers:
 
 
 Tasks:
-+ Validate performance of those mods before adding a channel model
++ Add more modulations schemes
++ Add 24, 26 SNR
++ Validate the new adaptation techniques
 + Add Resnet & CNN
 + Can I somehow use the new TorchSig paper? It has inbuilt ML inference on GR
 

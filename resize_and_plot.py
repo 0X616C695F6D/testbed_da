@@ -1,7 +1,15 @@
+"""
+Script to convert raw.iq files into npy.
+
+Size of output npy is (4096, 2, 1024) ; (samples, iq, frames).
+Signal is also normalized.
+"""
+
+
 import numpy as np
 import matplotlib.pyplot as plt
 
-data = np.fromfile('/home/ash/output.iq')
+data = np.fromfile('/home/ash/raw.iq')
 real_part = data[0::2]
 imag_part = data[1::2]
 
@@ -28,4 +36,4 @@ for i in range(10):
     plt.title(f'Normalized IQ Data - Frame {i*10}')
     plt.show()
 
-np.save('8apsk', IQ_frames_normalized)
+np.save('sig', IQ_frames_normalized)

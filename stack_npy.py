@@ -1,12 +1,21 @@
+"""
+Script to stack npy files into a single (X, 2, 1024) npy file.
+
+Outputs a (X, 2, 1024) where (total number of samples, iq, frames),
+and a label npy which contains the modulation type and Z-parameter value.
+I.e. a 4qam with doppler offet of 10Hz.
+"""
+
+
 import numpy as np
 import glob, os, re
 
-# Suppose you have exactly these 7 modulations
-# and Doppler offsets 0, 10, 20, ..., 100
+# Change modulation types to ones we collected
+# Change Z-parameter values we also collected
 modulations_in_order = [
-    "bpsk", "qpsk", "8psk", "4qam", "8qam", "16qam", "8apsk"
+    "bpsk", "qpsk", "4qam", "16qam", "apsk"
 ]
-doppler_in_order = [0, 10, 20, 30, 40, 50, 60, 70, 80, 90, 100]
+doppler_in_order = [10, 12, 14, 16, 18, 20, 22]
 
 # A helper function to parse filename: e.g. "8qam_doppler_60.npy"
 def parse_filename(fname):
@@ -18,7 +27,7 @@ def parse_filename(fname):
     base = os.path.basename(fname)
     # This assumes the filename format "<mod>_doppler_<offset>.npy"
     # e.g. "8qam_doppler_60.npy" -> mod="8qam", offset="60"
-    match = re.match(r"^([a-zA-Z0-9]+)_doppler_(\d+)\.npy$", base)
+    match = re.match(r"^([a-zA-Z0-9]+)_snr_(\d+)\.npy$", base)
     if not match:
         raise ValueError(f"Filename {base} does not match expected pattern.")
 
