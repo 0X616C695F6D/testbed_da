@@ -20,11 +20,9 @@ Papers:
 
 
 Tasks:
++ Better technique? https://github.com/zhaoxin94/awesome-domain-adaptation
+    + Maybe zero-shot, one-shot
 + Add more modulations schemes
-+ Add 24, 26 SNR
-+ Validate the new adaptation techniques
-+ Add Resnet & CNN
-+ Can I somehow use the new TorchSig paper? It has inbuilt ML inference on GR
 
 
 Ideas:
@@ -33,6 +31,7 @@ Ideas:
   target? has this been done before?
   + Looks like its been done before: unknown class, or remove signal, or
     adversarially calculate discrepancy like I initially predicted...
++ Add Resnet & CNN
 
 
 Goals:
@@ -42,6 +41,7 @@ Goals:
 
 
 Questions:
++ Can I somehow use the new TorchSig paper? It has inbuilt ML inference on GR
 + Getting accurate SNR on a real testbed is not possible, should we mix or try
   our best to categorize samples
 + Should we use additional datasets besides radioml 2018.01a and real-world?
@@ -55,6 +55,8 @@ Issues:
 
 
 Done:
++ Add 24, 26 SNR
++ Validate the new adaptation techniques
 + Build 3 PSK OTA Tx-Rx & generate data
 + Verify current implementations are correct
     + Correlation alignment for deep domain adaptation (CORAL)

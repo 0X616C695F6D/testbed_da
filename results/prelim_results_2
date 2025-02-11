@@ -1,0 +1,286 @@
+============
+Source 24
+Target 22
+============
+
+Baseline
+Source performance: 93.81 93.05 93.69 91.87
+Target performance: 40.44 36.77 40.86 33.62
+
+---------------------------------
+
+DANN
+Source performance: 79.91 77.98 79.83 75.85
+Target performance: 34.26 30.83 34.49 24.75
+
+---------------------------------
+
+MCD
+Source performance: 88.14% 86.20% 88.12% 85.81%
+Target performance: 46.24% 48.36% 46.40% 39.99%
+
+---------------------------------
+
+STAR
+Source performance: 99.11% 99.15% 99.12% 99.12%
+Target performance: 65.68% 73.28% 65.43% 60.48%
+
+---------------------------------
+
+CORAL
+Source performance: 82.55% 79.21% 82.46% 79.96%
+Target performance: 37.85% 31.51% 37.96% 26.89%
+
+---------------------------------
+
+JAN
+Source performance: 99.89% 99.89% 99.89% 99.89%
+Target performance: 41.00% 41.75% 41.60% 33.00%
+
+---------------------------------
+
+
+============
+Source 24
+Target 20
+============
+
+Baseline
+Source performance: 94.76 96.55 94.79 93.46
+Target performance: 54.37 51.15 54.21 47.30
+
+---------------------------------
+
+DANN
+Source performance: 88.15 85.29 88.09 85.34
+Target performance: 54.14 50.21 53.93 46.83
+
+---------------------------------
+
+MCD
+Source performance: 97.84% 96.82% 97.81% 97.15%
+Target performance: 58.79% 59.92% 58.52% 53.87%
+
+---------------------------------
+
+STAR
+Source performance: 97.63% 98.21% 97.55% 97.50%
+Target performance: 72.58% 68.63% 72.04% 67.06%
+
+---------------------------------
+
+CORAL
+Source performance: 98.01% 98.96% 97.93% 97.31%
+Target performance: 61.93% 55.69% 61.87% 55.48%
+
+---------------------------------
+
+JAN
+Source: 99.89% 99.88% 99.89% 99.88%
+Target: 62.20% 61.36% 62.50% 56.05%
+
+---------------------------------
+
+
+============
+Source 24
+Target 18
+============
+
+Baseline
+Source performance: 91.88 89.15 91.73 89.70
+Target performance: 80.36 78.47 79.56 75.15
+
+---------------------------------
+
+DANN
+Source performance: 77.51 72.76 77.55 72.76
+Target performance: 68.56 66.01 67.79 61.91
+
+---------------------------------
+
+MCD
+Source performance: 92.80% 92.48% 92.77% 91.25%
+Target performance: 85.26% 87.21% 84.78% 82.00%
+
+---------------------------------
+
+STAR
+Source performance: 99.84% 99.84% 99.84% 99.84%
+Target performance: 96.04% 96.79% 95.81% 95.79%
+
+---------------------------------
+
+CORAL
+
+Source performance: 99.85% 99.85% 99.85% 99.85%
+Target performance: 88.10% 92.79% 87.39% 85.31%
+
+---------------------------------
+
+JAN
+Source performance: 91.81% 90.26% 91.87% 90.52%
+Target performance: 85.63% 86.18% 85.27% 83.09%
+
+---------------------------------
+
+
+============
+Source 24
+Target 16
+============
+
+Baseline
+Source performance: 93.61 90.83 93.89 91.84
+Target performance: 49.16 52.07 49.14 41.82
+
+---------------------------------
+
+DANN
+Source performance: 78.11 75.96 77.76 74.35
+Target performance: 52.32 52.90 52.39 43.44
+
+---------------------------------
+
+MCD
+Source performance: 95.84% 95.70% 95.75% 94.60%
+Target performance: 60.73% 56.73% 60.76% 53.65%
+
+---------------------------------
+
+STAR
+Source performance: 99.97% 99.97% 99.96% 99.97%
+Target performance: 60.60% 60.04% 60.71% 58.66%
+
+---------------------------------
+
+CORAL
+Source performance: 99.93% 99.93% 99.93% 99.93%
+Target performance: 65.86% 64.24% 65.90% 60.54%
+
+---------------------------------
+
+JAN
+Source performance: 99.94% 99.94% 99.94% 99.94%
+Target performance: 60.95% 60.51% 61.08% 59.00%
+
+---------------------------------
+
+============
+Source 24
+Target 14
+============
+
+Baseline
+Source performance: 87.79 83.82 87.87 83.87
+Target performance: 58.39 40.78 58.27 45.41
+
+---------------------------------
+
+DANN
+Source performance: 74.12 70.18 74.14 69.74
+Target performance: 48.87 33.63 49.02 36.61
+
+---------------------------------
+
+MCD
+Source performance: 81.14% 76.48% 81.22% 77.37%
+Target performance: 56.36% 40.80% 56.11% 44.40%
+
+
+---------------------------------
+
+STAR
+Source performance: 97.42% 98.08% 97.42% 97.23%
+Target performance: 68.60% 65.82% 68.49% 62.09%
+
+---------------------------------
+
+CORAL
+Source performance: 91.94% 90.35% 91.95% 90.61%
+Target performance: 55.70% 36.27% 55.96% 42.55%
+
+---------------------------------
+
+JAN
+Source performance: 99.93% 99.93% 99.93% 99.93%
+Target performance: 59.11% 39.73% 59.44% 46.14%
+
+============
+Source 24
+Target 12
+============
+
+Baseline
+Source performance: 95.17 95.24 95.20 93.86
+Target performance: 47.43 29.33 46.97 34.49
+
+---------------------------------
+
+Source performance: 91.91 90.32 91.92 90.59
+Target performance: 55.32 35.42 54.84 41.86
+
+---------------------------------
+
+MCD
+Source performance: 94.36% 95.08% 94.23% 92.55%
+Target performance: 46.09% 29.86% 45.69% 32.57%
+
+---------------------------------
+
+STAR
+Source performance: 85.47% 87.38% 85.52% 82.50%
+Target performance: 66.44% 61.03% 65.63% 56.77%
+
+---------------------------------
+
+CORAL
+Source performance: 85.80% 83.74% 85.90% 82.91%
+Target performance: 46.53% 31.31% 46.03% 33.27%
+
+---------------------------------
+
+JAN
+Source performance: 83.72% 80.69% 83.94% 81.21%
+Target performance: 51.86% 33.36% 51.27% 38.29%
+
+
+============
+Source 24
+Target 10
+============
+
+Baseline
+Source performance: 94.73 93.02 94.71 93.32
+Target performance: 37.53 30.02 39.00 30.11
+
+---------------------------------
+
+DANN
+Source performance: 83.49 79.56 83.44 80.44
+Target performance: 40.05 33.20 41.34 32.69
+
+---------------------------------
+
+MCD
+Source performance: 93.74% 93.36% 93.75% 92.33%
+Target performance: 39.05% 36.77% 40.73% 33.23%
+
+---------------------------------
+
+STAR
+Source performance: 97.51% 97.68% 97.50% 96.87%
+Target performance: 41.57% 36.10% 43.46% 37.58%
+
+---------------------------------
+
+CORAL
+Source performance: 79.68% 75.43% 79.68% 76.35%
+Target performance: 37.87% 34.10% 39.25% 30.49%
+
+---------------------------------
+
+JAN
+Source performance: 99.84% 99.84% 99.84% 99.84%
+Target performance: 44.94% 44.46% 46.78% 39.02%
+
