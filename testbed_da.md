@@ -20,9 +20,11 @@ Papers:
 
 
 Tasks:
++ Pairwise evaluation OTA vs Simulated
 + Better technique? https://github.com/zhaoxin94/awesome-domain-adaptation
     + Maybe zero-shot, one-shot
-+ Add more modulations schemes
++ Always possible to: Add more constellations, wider SNR, deeper frames &
+  more samples
 
 
 Ideas:
@@ -55,7 +57,10 @@ Issues:
 
 
 Done:
++ All DA technique comparison in comparison\_plot.html
++ Add joint adaptation networks
 + Add 24, 26 SNR
++ Collect SNR varying samples
 + Validate the new adaptation techniques
 + Build 3 PSK OTA Tx-Rx & generate data
 + Verify current implementations are correct
