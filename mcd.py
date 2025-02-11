@@ -1,3 +1,11 @@
+"""
+File that implements MCD (Maximum Classifier Discrepancy).
+
+Contains train, test, run functions.
+Only model available is CLDNN.
+Also has GRL for MCD.
+"""
+
 import numpy as np
 import torch
 import torch.nn as nn

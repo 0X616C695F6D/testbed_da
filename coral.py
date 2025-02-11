@@ -1,3 +1,9 @@
+"""
+Implements CORAL (Correlation alignment for UDA)
+
+Contains train, test and run functions
+"""
+
 import numpy as np
 import torch
 import torch.nn as nn

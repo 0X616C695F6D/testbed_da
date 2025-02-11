@@ -1,3 +1,10 @@
+"""
+Implements JAN (Joint Adaptation Networks).
+
+Contains train, test and run functions.
+CLDNN model only.
+"""
+
 import numpy as np
 import torch
 import torch.nn as nn

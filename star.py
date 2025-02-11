@@ -1,3 +1,8 @@
+"""
+File that implement ML models & train & test & run functions for STAR (stochastic classifier).
+https://github.com/zhiheLu/STAR_Stochastic_Classifiers_for_UDA.
+"""
+
 import numpy as np
 import torch
 import torch.nn as nn
