@@ -108,7 +108,7 @@ class CLDNN_FA(nn.Module):
         return x
 
 class CLDNN_LP(nn.Module):
-    def __init__(self, output_dim=24):
+    def __init__(self, output_dim=7):
         super(CLDNN_LP, self).__init__()
         self.lstm2 = nn.LSTM(input_size=64, hidden_size=64, num_layers=1, batch_first=True, bidirectional=False)
         self.dropout = nn.Dropout(0.5)

@@ -6,6 +6,8 @@ No DA method used.
 import numpy as np
 import torch
 import torch.nn as nn
+import matplotlib.pyplot as plt
+import seaborn as sns
 
 from sklearn.metrics import confusion_matrix,accuracy_score
 from sklearn.metrics import precision_score,f1_score,recall_score
@@ -49,7 +51,7 @@ class MLP(nn.Module):
     
 # !bidirectional
 class CLDNN(nn.Module):
-    def __init__(self, output_dim=24):
+    def __init__(self, output_dim=7):
         super(CLDNN, self).__init__()
         self.conv1 = nn.Conv1d(in_channels=2, out_channels=64, kernel_size=8, stride=1, padding=0)
         self.pool = nn.MaxPool1d(kernel_size=2, stride=2)
@@ -197,7 +199,7 @@ class Base:
         conf_mat = confusion_matrix(true_labels, predictions)
         class_accuracy = conf_mat.diagonal() / conf_mat.sum(axis=1)
     
-        # Plot the confusion matrix
+        #Plot the confusion matrix
         #plt.figure(figsize=(8,6),dpi=300)
         #sns.heatmap(conf_mat, annot=True, fmt='d', cmap='Blues',
         #            xticklabels=n_classes,
