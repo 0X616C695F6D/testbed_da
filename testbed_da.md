@@ -20,9 +20,14 @@ Papers:
 
 
 Tasks:
++ Collect longer frame size
++ Validate normalization method is correct
+    + why: plotting signal, sometimes X is 0.002 to -0.006, other times 6 to -6;
+      we are doing global frame normalization (based on global max)
++ TSNE to visualize difference between SNR levels
+    + why: should show clusters if SNR levels can be differentiated
+    + maybe also do based on constellation not snr?
 + Pairwise evaluation OTA vs Simulated
-+ Better technique? https://github.com/zhaoxin94/awesome-domain-adaptation
-    + Maybe zero-shot, one-shot
 + Always possible to: Add more constellations, wider SNR, deeper frames &
   more samples
 

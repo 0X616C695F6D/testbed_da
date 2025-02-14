@@ -15,7 +15,7 @@ import glob, os, re
 modulations_in_order = [
     "bpsk", "qpsk", "16qam", "16apsk"
 ]
-doppler_in_order = [10, 12, 14, 16, 18]
+doppler_in_order = [110, 112, 114, 116, 118, 120, 122, 124]
 
 # A helper function to parse filename: e.g. "8qam_doppler_60.npy"
 def parse_filename(fname):
@@ -40,7 +40,7 @@ def parse_filename(fname):
 mod_to_id = {m: i for i, m in enumerate(modulations_in_order)}
 
 # We'll load all npy files from some directory (modify path as needed)
-all_files = glob.glob("/home/ash/raw_npy/*.npy")
+all_files = glob.glob("/home/ash/raw_npy/sim_snr_npy/*.npy")
 
 # First, parse the filenames and store (mod, doppler, filepath)
 info_list = []
