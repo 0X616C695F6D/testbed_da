@@ -15,7 +15,7 @@ import glob, os, re
 modulations_in_order = [
     "bpsk", "qpsk", "16qam", "16apsk"
 ]
-doppler_in_order = [110, 112, 114, 116, 118, 120, 122, 124]
+doppler_in_order = [10, 14, 18, 22]
 
 # A helper function to parse filename: e.g. "8qam_doppler_60.npy"
 def parse_filename(fname):
