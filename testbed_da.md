@@ -20,16 +20,9 @@ Papers:
 
 
 Tasks:
-+ Collect longer frame size
-+ Validate normalization method is correct
-    + why: plotting signal, sometimes X is 0.002 to -0.006, other times 6 to -6;
-      we are doing global frame normalization (based on global max)
-+ TSNE to visualize difference between SNR levels
-    + why: should show clusters if SNR levels can be differentiated
-    + maybe also do based on constellation not snr?
++ Collect longer OTA frame size
 + Pairwise evaluation OTA vs Simulated
-+ Always possible to: Add more constellations, wider SNR, deeper frames &
-  more samples
++ Add deep ResNet model
 
 
 Ideas:
@@ -38,7 +31,8 @@ Ideas:
   target? has this been done before?
   + Looks like its been done before: unknown class, or remove signal, or
     adversarially calculate discrepancy like I initially predicted...
-+ Add Resnet & CNN
++ Always possible to: Add more constellations, wider SNR, deeper frames &
+  more samples
 
 
 Goals:
@@ -62,6 +56,13 @@ Issues:
 
 
 Done:
++ Collect longer simulated frame size
++ TSNE to visualize clusters. I dont think this works.
+    + why: should show clusters if SNR levels can be differentiated
+    + maybe also do based on constellation not snr?
++ Fix normalization method to be accurate
+    + why: plotting signal, sometimes X is 0.002 to -0.006, other times 6 to -6;
+      we are doing global frame normalization (based on global max)
 + All DA technique comparison in comparison\_plot.html
 + Add joint adaptation networks
 + Add 24, 26 SNR
