@@ -6,7 +6,7 @@ from torch.utils.data import DataLoader, TensorDataset, random_split
 
 device = torch.device("cuda" if torch.cuda.is_available() else "cpu")
 
-def create_loader(X_path, Y_path, batch_size=128, split=0.8, permute=True):
+def create_loader(X_path, Y_path, batch_size=64, split=0.8, permute=True):
     """
     Turn NPY files into dataloaders. Input can be a file path or an ndarray.
 

@@ -27,7 +27,7 @@ class CLDNN_G(nn.Module):
         self.lstm2 = nn.LSTM(input_size=64, hidden_size=64, num_layers=1, batch_first=True, bidirectional=False)
         self.dropout1 = nn.Dropout(0.5)
         self.dropout2 = nn.Dropout(0.5)
-        self.fc_bottleneck = nn.Linear(32512, 512) # bottleneck layer
+        self.fc_bottleneck = nn.Linear(2044 * 64, 512) # bottleneck layer
 
     def forward(self, x):
         x = self.conv1(x)

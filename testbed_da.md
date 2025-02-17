@@ -20,12 +20,17 @@ Papers:
 
 
 Tasks:
-+ Collect longer OTA frame size
++ Characterize the OTA channel!
 + Pairwise evaluation OTA vs Simulated
 + Add deep ResNet model
 
 
 Ideas:
++ Signal -> image, try CNN on the image
++ GAN-based model, generate target and map back to sim
++ Deep Coral, coral layer-by-layer
++ Resnet || Residual LSTM || deeper CNN
++ Transformer, convolution+transformer model
 + New idea: new class in target domain; what happens then? can you calculate the
   discrepancy between the labelled data in source&target and unlabelled in
   target? has this been done before?
@@ -42,6 +47,7 @@ Goals:
 
 
 Questions:
++ Do we want to adapt to a higher SNR?
 + Can I somehow use the new TorchSig paper? It has inbuilt ML inference on GR
 + Getting accurate SNR on a real testbed is not possible, should we mix or try
   our best to categorize samples
@@ -56,6 +62,7 @@ Issues:
 
 
 Done:
++ Collect longer OTA frame size
 + Collect longer simulated frame size
 + TSNE to visualize clusters. I dont think this works.
     + why: should show clusters if SNR levels can be differentiated

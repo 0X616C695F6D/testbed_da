@@ -13,9 +13,9 @@ import glob, os, re
 # Change modulation types to ones we collected
 # Change Z-parameter values we also collected
 modulations_in_order = [
-    "bpsk", "qpsk", "16qam", "16apsk"
+    "bpsk", "qpsk", "16qam", "8apsk"
 ]
-doppler_in_order = [10, 14, 18, 22]
+doppler_in_order = [10, 14, 18, 22, 26, 30]
 
 # A helper function to parse filename: e.g. "8qam_doppler_60.npy"
 def parse_filename(fname):
@@ -40,7 +40,7 @@ def parse_filename(fname):
 mod_to_id = {m: i for i, m in enumerate(modulations_in_order)}
 
 # We'll load all npy files from some directory (modify path as needed)
-all_files = glob.glob("/home/ash/raw_npy/sim_snr_npy/*.npy")
+all_files = glob.glob("/home/ash/raw_npy/ota_snr_npy/*.npy")
 
 # First, parse the filenames and store (mod, doppler, filepath)
 info_list = []
