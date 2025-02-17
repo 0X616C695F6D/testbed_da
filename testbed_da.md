@@ -20,18 +20,17 @@ Papers:
 
 
 Tasks:
-+ Characterize the OTA channel!
 
 
 Ideas:
++ GAN-based model, generate target and map back to sim
++ Transformer, convolution+transformer model
 + Signal -> image, try CNN on the image
     + Has anyone performed image-compute on spectrum analyzer output?
-+ GAN-based model, generate target and map back to sim
 + Try these libraries out
     + https://github.com/KevinMusgrave/pytorch-adapt
     + https://github.com/thuml/Transfer-Learning-Library
     + https://github.com/facebookresearch/DomainBed
-+ Transformer, convolution+transformer model
 + Introduce an unknown constellation on target
 
 
