@@ -21,29 +21,24 @@ Papers:
 
 Tasks:
 + Characterize the OTA channel!
-+ Pairwise evaluation OTA vs Simulated
-+ Add deep ResNet model
 
 
 Ideas:
 + Signal -> image, try CNN on the image
+    + Has anyone performed image-compute on spectrum analyzer output?
 + GAN-based model, generate target and map back to sim
-+ Deep Coral, coral layer-by-layer
-+ Resnet || Residual LSTM || deeper CNN
++ Try these libraries out
+    + https://github.com/KevinMusgrave/pytorch-adapt
+    + https://github.com/thuml/Transfer-Learning-Library
+    + https://github.com/facebookresearch/DomainBed
 + Transformer, convolution+transformer model
-+ New idea: new class in target domain; what happens then? can you calculate the
-  discrepancy between the labelled data in source&target and unlabelled in
-  target? has this been done before?
-  + Looks like its been done before: unknown class, or remove signal, or
-    adversarially calculate discrepancy like I initially predicted...
-+ Always possible to: Add more constellations, wider SNR, deeper frames &
-  more samples
++ Introduce an unknown constellation on target
 
 
 Goals:
 + Journal on domain adaptation in RFML
-+ Real world testbed for the VTC dataset. Domain adaptation for SNR and other
-  parameters (doppler, etc)
++ Adapt simulated to OTA raw IQ signals using many UDA techniques & models.
++ Validation of VTC paper, on real world collected data.
 
 
 Questions:
@@ -58,15 +53,17 @@ Questions:
     + G is dann, cycada. L is mcd and stochastic.
 
 
-Issues:
+Poor:
++ TSNE to visualize clusters.
+    + why: should show clusters if SNR levels can be differentiated
+    + maybe also do based on constellation not snr?
 
 
 Done:
++ Add deep ResNet model for all domain adaptation techniques
++ Pairwise evaluation OTA vs Simulated
 + Collect longer OTA frame size
 + Collect longer simulated frame size
-+ TSNE to visualize clusters. I dont think this works.
-    + why: should show clusters if SNR levels can be differentiated
-    + maybe also do based on constellation not snr?
 + Fix normalization method to be accurate
     + why: plotting signal, sometimes X is 0.002 to -0.006, other times 6 to -6;
       we are doing global frame normalization (based on global max)

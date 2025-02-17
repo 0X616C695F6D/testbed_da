@@ -56,12 +56,14 @@ class CLDNN_C_JAN(nn.Module):
             return out
 
 class Jan:
-    def __init__(self, num_classes, device, 
+    def __init__(self, C, G, num_classes, device, 
                  S_train_loader, T_train_loader, 
                  S_val_loader, T_val_loader,
                  n_epochs=50, lr=0.001, lambda_jmmd=0.1, n_runs=10,
                  early_stopping_patience=5):
-        
+
+        self.C = C
+        self.G = G
         self.num_classes = num_classes
         self.device = device
         self.S_train_loader = S_train_loader
@@ -106,9 +108,9 @@ class Jan:
         loss = torch.mean(XX + YY - XY - YX)
         return loss
     
-    def train_model(self):
-        feature_extractor = CLDNN_G().to(self.device)
-        classifier = CLDNN_C_JAN(output_dim=self.num_classes).to(self.device)
+    def train_model(self): # modified this, to pass in another model instead of hardcoded.
+        feature_extractor = self.G().to(self.device)
+        classifier = self.C(output_dim=self.num_classes).to(self.device)
         
         criterion = nn.CrossEntropyLoss()
         optimizer = optim.Adam(list(feature_extractor.parameters()) + list(classifier.parameters()), lr=self.lr)
