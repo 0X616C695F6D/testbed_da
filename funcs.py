@@ -2,11 +2,13 @@ import numpy as np
 import torch
 import h5py
 
+from  torch.utils.data import Subset
+from sklearn.model_selection import train_test_split
 from torch.utils.data import DataLoader, TensorDataset, random_split
 
 device = torch.device("cuda" if torch.cuda.is_available() else "cpu")
 
-def create_loader(X_path, Y_path, batch_size=64, split=0.8, permute=True):
+def create_loader(X_path, Y_path, batch_size=64, split=0.8, permute=True, stratify=True):
     """
     Turn NPY files into dataloaders. Input can be a file path or an ndarray.
 
@@ -16,6 +18,7 @@ def create_loader(X_path, Y_path, batch_size=64, split=0.8, permute=True):
     Y_path : Path for label set 
     batch_size : Batch size of dataloader
     split : Split used for train and validation
+    stratify: Returns a balanced number of samples per class
 
     Returns
     -------
@@ -40,10 +43,16 @@ def create_loader(X_path, Y_path, batch_size=64, split=0.8, permute=True):
         X_tensor = X_tensor.permute(0, 2, 1)
         
     dataset = TensorDataset(X_tensor, Y_tensor)
-    
-    train_size = int(split * len(dataset))
-    val_size = len(dataset) - train_size
-    train_dataset, val_dataset = random_split(dataset, [train_size, val_size])
+
+    if stratify:
+        indi = np.arange(len(Y))        
+        train_idx, val_idx = train_test_split(indi, stratify=Y, test_size=1-split)
+        train_dataset = Subset(dataset, train_idx)
+        val_dataset = Subset(dataset, val_idx)
+    else:    
+        train_size = int(split * len(dataset))
+        val_size = len(dataset) - train_size
+        train_dataset, val_dataset = random_split(dataset, [train_size, val_size])
     
     train_loader = DataLoader(train_dataset, batch_size=batch_size, shuffle=True)
     val_loader = DataLoader(val_dataset, batch_size=batch_size, shuffle=False)

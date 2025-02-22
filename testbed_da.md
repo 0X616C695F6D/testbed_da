@@ -20,10 +20,10 @@ Papers:
 
 
 Tasks:
++ Add a global RNG
 + Evaluate when trained and tested on target (for OTA) - this should be golden
   performance. Then compare with the graph we have for OTA SNR-to-SNR
 + Cross-validation: Batch dataset and make sure to validate all of them
-+ https://scikit-learn.org/1.5/auto_examples/decomposition/plot_ica_blind_source_separation.html
 + Vary number of source SNR and plot 'X' with target for comprehesive results
     + So decrease SNR, run, decrease, run, etc.
 + Ablation study; vary target dataset size(1%, 5%, 10%)
